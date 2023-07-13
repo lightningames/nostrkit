@@ -1,22 +1,22 @@
 # NostrKit README 
 
-The WHAT:
+**The WHAT:**
 This Project is a Template Build. The end goal: to be able to make this repo a template and let people clone it for their own version. Right now, its not a template, but it should be easily convertible in the settings when finished.
 
-The WHY: 
+**The WHY:**
 Why are we doing this? Because a lot of nostr services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly, 
 
-Do's and Don'ts
+**Do's and Don'ts**
 - DO NOT HARD CODE ANYTHING
 - DO Think about smart abstractions
 - DO Think about usability
 - DO Think about simplicity
 - DO Think about designing for the future. 
 
-The FRAMEWORKS: 
+**The FRAMEWORKS:**
 Svelte and Node.js
 
-The GUIDELINES: 
+**The GUIDELINES:**
 
 See original document at 
 https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09IFE2DLFNPmCeWpzYAG9COhe5gTVJy4%3D
