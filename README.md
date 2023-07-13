@@ -1,6 +1,11 @@
 # nostrkit README 
 
-Template Build Guidelines: 
+This Project is a Template Build, end goal: to be able to make this repo a template let people clone it for their own version.
+
+Frameworks: Svelte and Node.js
+
+The following are Guidelines: 
+
 
 See original document at 
 https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09IFE2DLFNPmCeWpzYAG9COhe5gTVJy4%3D
