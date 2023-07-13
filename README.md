@@ -1,4 +1,4 @@
-# nostrkit README 
+# NostrKit README 
 
 This Project is a Template Build, end goal: to be able to make this repo a template let people clone it for their own version.
 
