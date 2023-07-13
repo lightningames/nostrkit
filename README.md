@@ -1,11 +1,22 @@
 # NostrKit README 
 
+The WHAT:
 This Project is a Template Build. The end goal: to be able to make this repo a template and let people clone it for their own version. Right now, its not a template, but it should be easily convertible in the settings when finished.
 
-Frameworks: Svelte and Node.js
+The WHY: 
+Why are we doing this? Because a lot of nostr services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly, 
 
-The following are Guidelines: 
+Do's and Don'ts
+- DO NOT HARD CODE ANYTHING
+- DO Think about smart abstractions
+- DO Think about usability
+- DO Think about simplicity
+- DO Think about designing for the future. 
 
+The FRAMEWORKS: 
+Svelte and Node.js
+
+The GUIDELINES: 
 
 See original document at 
 https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09IFE2DLFNPmCeWpzYAG9COhe5gTVJy4%3D
@@ -26,7 +37,7 @@ https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09I
 
 - Allow user to generate a nostr npub/nsec (free service)
 - Allow user to pay for selected items only, e.g.
-  - Allow user to generate a vanity npub/nsec (lightning fee)
+  - Allow user to generate a vanity npub/nsec (lightning fee) [see what Edward Snowden did, but rana might be too intensive to run here, not sure if there is a web version or if there something else]
   - Nostr NIP-5
   - lightning address only pointing at their lightning node, or 
   - lightning address with a LNBIts account created and/or 
