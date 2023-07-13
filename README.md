@@ -16,10 +16,10 @@ Guidelines:
 - Allow user to generate a nostr npub/nsec (free service)
 - Allow user to pay for selected items only, e.g.
   - Allow user to generate a vanity npub/nsec (lightning fee)
-  - purchase NIP-5 only, 
-  - ightning address only pointing at their lightning node, or 
+  - Nostr NIP-5
+  - lightning address only pointing at their lightning node, or 
   - lightning address with a LNBIts account created and/or 
   - lightning address with email forwarder to their personal email
-  - purchase access to nostr relay
+  - purchase access to nostr relay (future, don't have it right now, but plan now to make it an option)
  
     
