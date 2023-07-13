@@ -1,6 +1,9 @@
-# nostrkit
+# nostrkit README 
 
-Guidelines: 
+Template Build Guidelines: 
+
+See original document at 
+https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09IFE2DLFNPmCeWpzYAG9COhe5gTVJy4%3D
 
 - Use Picocss v2 as the CSS and for forms - https://v2.picocss.com/docs
 - This nostrkit website should be deployable on any domain-name.github.io, or vercel or netlify (custom domains)
