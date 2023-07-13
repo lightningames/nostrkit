@@ -6,7 +6,7 @@ This Project is a Template Build. The end goal: to be able to make this repo a t
 
 ## **The WHY:**
 
-Why are we doing this? Because a lot of nostr services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly, 
+Why are we doing this? Because a lot of nostr + LN services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly, 
 
 ## **Do's and Don'ts**
 - DO NOT HARD CODE ANYTHING
