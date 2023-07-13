@@ -1,6 +1,6 @@
 # NostrKit README 
 
-This Project is a Template Build. The end goal: to be able to make this repo a template let people clone it for their own version.
+This Project is a Template Build. The end goal: to be able to make this repo a template and let people clone it for their own version. Right now, its not a template, but it should be easily convertible in the settings when finished.
 
 Frameworks: Svelte and Node.js
 
