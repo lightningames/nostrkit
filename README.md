@@ -37,7 +37,7 @@ https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09I
 
 - Allow user to generate a nostr npub/nsec (free service)
 - Allow user to pay for selected items only, e.g.
-  - Allow user to generate a vanity npub/nsec (lightning fee) [see what Edward Snowden did, but grunch/rana (see git repo) might be too intensive to run on web, not sure if there is a web api version or if there something else, side project anybody? take rana and make it a web enabled service? need server. pls research to check if there is something else out there first before coding it - stretch challenge - turn it into a docker container that can be deployed on fly.io and see if its enough free computational power to run]
+  - Allow user to generate a vanity npub/nsec (lightning fee) [see what Edward Snowden did, but grunch/rana (see git repo) might be too intensive to run on web, not sure if there is a web api version or if there something else, side project anybody? take rana and make it a web enabled service? need server. pls research to check if there is something else out there first before coding it - stretch challenge - turn it into a docker container that can be deployed on fly.io and see if its enough computational power to run on the free plan]
   - Nostr NIP-5
   - lightning address only pointing at their lightning node, or 
   - lightning address with a LNBIts account created and/or 
