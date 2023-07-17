@@ -6,7 +6,7 @@
   <header>
     <nav>
       <ul>
-        <li><strong>Brand</strong></li>
+        <li><strong>Brand Here</strong></li>
       </ul>
       <ul>
         <li><a href="#">Link</a></li>
