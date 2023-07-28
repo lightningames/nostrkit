@@ -1,4 +1,4 @@
-# NostrKit README 
+# NostrKit README
 
 ## **The WHAT:**
 
@@ -6,14 +6,15 @@ This Project is a Template Build. The end goal: to be able to make this repo a t
 
 ## **The WHY:**
 
-Why are we doing this? Because a lot of nostr + LN services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly, 
+Why are we doing this? Because a lot of nostr + LN services are split all over the place and there isn't a good way to do it all in one shot. What we've outlined here is a starting point. There are many other nostr services which will be added in the future not yet listed, so plan accordingly,
 
 ## **Do's and Don'ts**
+
 - DO NOT HARD CODE ANYTHING
 - DO Think about smart abstractions
 - DO Think about usability
 - DO Think about simplicity
-- DO Think about designing for the future. 
+- DO Think about designing for the future.
 
 ## **The FRAMEWORKS:**
 
@@ -21,7 +22,7 @@ Why are we doing this? Because a lot of nostr + LN services are split all over t
 
 ## **The GUIDELINES:**
 
-See original document at 
+See original document at
 https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09IFE2DLFNPmCeWpzYAG9COhe5gTVJy4%3D
 
 - Use Picocss v2 as the CSS and for forms - https://v2.picocss.com/docs
@@ -34,17 +35,22 @@ https://app.skiff.com/docs/76e41448-e865-44bf-b401-bfa0a3052299#e%2BeTJlKkwzy09I
 
 - Allow ability for user to host the nostrkit website on a subdomain but have it update .well-known in another github repo which might be the actual domain website (e.g. plebnet website is the main domain, so the .well-known is on another github repo). [this is probably the trickiest]
 
-- For example nostrkit website might be called https://services.domain.com but the actual website is at https://domain.com, so their NIP would be name@domain.com, which means that the .well-known must be hosted over at the repo that is used for domain.com 
-  
+- For example nostrkit website might be called https://services.domain.com but the actual website is at https://domain.com, so their NIP would be name@domain.com, which means that the .well-known must be hosted over at the repo that is used for domain.com
+
 - Allow ability for any one to visit the nostrkit website and create their own username@domain.com and then pay a small lightning invoice fee to get it added.
 
 - Allow user to generate a nostr npub/nsec (free service)
 - Allow user to pay for selected items only, e.g.
   - Allow user to generate a vanity npub/nsec (lightning fee) [see what Edward Snowden did, but grunch/rana (see git repo) might be too intensive to run on web, not sure if there is a web api version or if there something else, side project anybody? take rana and make it a web enabled service? need server. pls research to check if there is something else out there first before coding it - stretch challenge - turn it into a docker container that can be deployed on fly.io and see if its enough computational power to run on the free plan]
   - Nostr NIP-5
-  - lightning address only pointing at their personal lightning node, or 
-  - lightning address with a LNBIts account [Bitkarrot will give you a LNBits server] created and/or 
+  - lightning address only pointing at their personal lightning node, or
+  - lightning address with a LNBIts account [Bitkarrot will give you a LNBits server] created and/or
   - lightning address with email forwarder to their personal email
   - purchase access to nostr relay (future, don't have it right now, but plan now to make it an option)
- 
-    
+
+## **Using this Repo:**
+
+1. Git clone and cd into `nostrkit`.
+2. Run `npm install` to install dependencies
+3. Run `npm run dev` to start the local server
+4. Run `npm run build` to create an optimized production version to be hosted on a domain of your choosing (Vercel and Github Pages are good places to start)
