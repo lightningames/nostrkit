@@ -18,7 +18,11 @@ export function GET() {
   let mapping;
   if (fs.existsSync(filePath)) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    mapping = JSON.parse(fileContent);
+    if (fileContent) {
+      mapping = JSON.parse(fileContent);
+    } else {
+      mapping = { names: {} };
+    }
   } else {
     mapping = { names: {} };
   }
