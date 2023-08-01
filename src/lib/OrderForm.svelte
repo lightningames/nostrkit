@@ -2,8 +2,16 @@
   import KeysIcon from 'virtual:icons/game-icons/house-keys';
   import AddressIcon from 'virtual:icons/entypo/email';
   import LightningIcon from 'virtual:icons/carbon/lightning';
+  import GenerateKeys from '$lib/GenerateKeys.svelte';
+
   let step = 0;
+  /**
+   * @type {any[]}
+   */
   let selectedProducts = [];
+  /**
+   * @type {any[]}
+   */
   const products = [
     {
       id: 1,
@@ -34,30 +42,43 @@
   }
 </script>
 
-<KeysIcon style="font-size:2em" />
 <article>
   <form class="order-form">
-    <h2>Start your Order</h2>
     {#if step === 0}
+      <h2>Start your Order</h2>
       <div class="product-cards">
         {#each products as product (product.id)}
           <article>
             <header>
-              <h3>
+              <h3 style="white-space: nowrap;">
                 {product.name}
-                <KeysIcon style="font-size:2em" />
-                <AddressIcon style="font-size:2em" />
-                <LightningIcon style="font-size:2rem" />
+                {#if product.id === 1}
+                  <KeysIcon style="font-size:1em" />
+                {/if}
+                {#if product.id === 2}
+                  <AddressIcon style="font-size:1em" />
+                {/if}
+                {#if product.id === 3}
+                  <LightningIcon style="font-size:1rem" />
+                {/if}
               </h3>
             </header>
             {product.description}
 
             <footer>
-              <input
-                type="checkbox"
-                checked={selectedProducts.includes(product.id)}
-                on:change={() => toggleProduct(product.id)}
-              />
+              <div
+                style="display:flex; align-items: center; justify-content: center;"
+              >
+                <input
+                  id="product"
+                  type="checkbox"
+                  checked={selectedProducts.includes(product.id)}
+                  on:change={() => toggleProduct(product.id)}
+                />
+                <p style="align-items: center; margin-top:0.8rem;">
+                  Add to Cart
+                </p>
+              </div>
             </footer>
           </article>
         {/each}
@@ -67,9 +88,21 @@
       <div class="product-page">
         <h2>
           {products.find((product) => product.id === selectedProducts[step - 1])
-            .name} Page
+            .name}
+          {#if selectedProducts[step - 1] === 1}
+            <KeysIcon style="font-size:1em" />
+          {/if}
+          {#if selectedProducts[step - 1] === 2}
+            <AddressIcon style="font-size:1em" />
+          {/if}
+          {#if selectedProducts[step - 1] === 3}
+            <LightningIcon style="font-size:1rem" />
+          {/if}
         </h2>
         <!-- Add form fields for each product here -->
+        {#if step === 1}
+          <GenerateKeys />
+        {/if}
       </div>
       <button on:click={() => step++}>Next</button>
     {:else}
