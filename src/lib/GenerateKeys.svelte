@@ -1,27 +1,28 @@
 <script>
-  let number;
   /**
    * @type {string}
    */
-  let pubKey;
+  export let pubKey;
   /**
-   * @type {string}
+   * @type {boolean}
    */
-  let privKey;
 
   let showPrivKey = false;
 
-  let keysGen = false;
+  /**
+   * @type {boolean}
+   */
+  export let keysGen;
 
-  async function getKeys(e) {
-    e.preventDefault();
-    const response = await fetch('/get-keys');
-    number = await response.json();
-    pubKey = number.pk;
-    privKey = number.sk;
-    // modal toggle that says "warning! Save these keys in a safe place. You won't see your private key after leaving this page or refreshing your browser"
-    keysGen = true;
-  }
+  /**
+   * @type {string}
+   */
+  export let privKey;
+
+  /**
+   * @type {function}
+   */
+  export let getKeys;
 
   function togglePrivKey(e) {
     e.preventDefault();
@@ -36,10 +37,11 @@
       shown your private key again.
     </p>
   </header>
+  <!-- {console.log('this is keysGen:', keysGen)} -->
   {#if !keysGen}
     <button id="nostr-form" on:click={(e) => getKeys(e)}
-      >Generate your keys!</button
-    >
+      >Generate your keys!
+    </button>
   {/if}
   <div class="container">
     <p>{pubKey ? `Public Key: ${pubKey}` : ''}</p>

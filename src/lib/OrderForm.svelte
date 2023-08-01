@@ -3,6 +3,12 @@
   import AddressIcon from 'virtual:icons/entypo/email';
   import LightningIcon from 'virtual:icons/carbon/lightning';
   import GenerateKeys from '$lib/GenerateKeys.svelte';
+  import GenerateNip05 from '$lib/GenerateNip05.svelte';
+  import { onMount } from 'svelte';
+
+  let keys;
+
+  let keysGen = false;
 
   let step = 0;
   /**
@@ -32,13 +38,47 @@
       price: 1000,
     },
   ];
+  /**
+   * @type {string}
+   */
+  let pubKey;
+  /**
+   * @type {string}
+   */
+  let privKey;
+
+  /**
+   * @type {string[]}
+   */
+  let takenNames = [];
+
+  onMount(async () => {
+    const response = await fetch('/get-nip05');
+    const data = await response.json();
+    console.log('this is data on mount\n', data);
+    const chosenNames = data.mapping.names;
+    for (let takenName in chosenNames) {
+      takenNames.push(takenName);
+    }
+    console.log('this is takenNames\n', takenNames);
+  });
 
   function toggleProduct(id) {
     if (selectedProducts.includes(id)) {
       selectedProducts = selectedProducts.filter((product) => product !== id);
     } else {
-      selectedProducts.push(id);
+      selectedProducts = [...selectedProducts, id];
     }
+  }
+
+  async function getKeys(e) {
+    e.preventDefault();
+    const response = await fetch('/get-keys');
+    keys = await response.json();
+    pubKey = keys.pk;
+    privKey = keys.sk;
+    // modal toggle that says "warning! Save these keys in a safe place. You won't see your private key after leaving this page or refreshing your browser"
+    keysGen = true;
   }
 </script>
 
@@ -83,7 +123,11 @@
           </article>
         {/each}
       </div>
-      <button on:click={() => step++}>Next</button>
+      {#if selectedProducts.length}
+        <div class="button-container">
+          <button on:click={() => step++}>Next</button>
+        </div>
+      {/if}
     {:else if step <= selectedProducts.length}
       <div class="product-page">
         <h2>
@@ -101,7 +145,10 @@
         </h2>
         <!-- Add form fields for each product here -->
         {#if step === 1}
-          <GenerateKeys />
+          <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
+        {/if}
+        {#if step === 2}
+          <GenerateNip05 {pubKey} />
         {/if}
       </div>
       <button on:click={() => step++}>Next</button>
@@ -136,6 +183,12 @@
   .product-card input[type='checkbox'] {
     display: inline-block;
     margin-top: 1rem;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 
   h3 {
