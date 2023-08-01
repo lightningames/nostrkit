@@ -148,10 +148,17 @@
           <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
         {/if}
         {#if step === 2}
-          <GenerateNip05 {pubKey} />
+          <GenerateNip05 {pubKey} {takenNames} />
         {/if}
       </div>
-      <button on:click={() => step++}>Next</button>
+      <div class="button-container">
+        <button
+          on:click={(e) => {
+            e.preventDefault();
+            step++;
+          }}>Next</button
+        >
+      </div>
     {:else}
       <div class="checkout-page">
         <h2>Checkout</h2>
