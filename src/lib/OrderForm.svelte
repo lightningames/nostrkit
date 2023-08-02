@@ -4,9 +4,15 @@
   import LightningIcon from 'virtual:icons/carbon/lightning';
   import GenerateKeys from '$lib/GenerateKeys.svelte';
   import GenerateNip05 from '$lib/GenerateNip05.svelte';
+  import GenerateLightningAddress from './GenerateLightningAddress.svelte';
+  import Checkout from './Checkout.svelte';
   import { onMount } from 'svelte';
 
   let keys;
+
+  let nostrHandle = '';
+
+  let lightningAddress = '';
 
   let keysGen = false;
 
@@ -148,7 +154,10 @@
           <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
         {/if}
         {#if step === 2}
-          <GenerateNip05 {pubKey} {takenNames} />
+          <GenerateNip05 {pubKey} {takenNames} bind:nostrHandle />
+        {/if}
+        {#if step === 3}
+          <GenerateLightningAddress bind:lightningAddress />
         {/if}
       </div>
       <div class="button-container">
@@ -163,6 +172,7 @@
       <div class="checkout-page">
         <h2>Checkout</h2>
         <!-- Add checkout form fields here -->
+        <Checkout {pubKey} {privKey} {lightningAddress} {nostrHandle} />
       </div>
     {/if}
   </form>

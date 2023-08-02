@@ -17,8 +17,14 @@
 
   let addressCreated = false;
 
-  let nostrHandle = '';
+  /**
+   * @type {string}
+   */
+  export let nostrHandle;
 
+  /**
+   * @param {(MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) | undefined} [e]
+   */
   async function submit(e) {
     e.preventDefault();
     nostrHandle = inputElement.value;
