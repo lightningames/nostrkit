@@ -1,6 +1,7 @@
 <script>
   import "@picocss/pico";
   import { Router, Link, Route } from 'svelte-routing';
+
   import Home from './Home.svelte';
   import About from './About.svelte';
   import What from './What.svelte';
@@ -16,7 +17,7 @@
     <header>
       <nav>
         <ul>
-          <li><Link to="/home"><strong>NOSTRKIT</strong></Link></li>
+          <li><Link to="/"><strong>NOSTRKIT</strong></Link></li>
           <li>by <a href="https://plebnet.dev/">PlebNet.dev</a></li>
         </ul>
         <ul>
@@ -28,7 +29,7 @@
     </header>
     <hr />
 
-    <Route path="/home" component={Home} />
+    <Route path="/"><Home /></Route>
     <Route path="/about" component={About} />
     <Route path="/what" component={What} />
     <Route path="/selfhosting" component={SelfHosting} />
