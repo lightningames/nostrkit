@@ -98,7 +98,7 @@
         real-time.
       </p>
     </article>
-
+    <!--
     <button id="nostr-form" on:click={getKeys}>Generate your keys!</button>
     <div class="container">
       <p>{pubKey ? `Public Key: ${pubKey}` : ''}</p>
@@ -145,7 +145,7 @@
           }
         }}
       />
-    </div>
+    </div> -->
     <OrderForm {pubKey} {privKey} />
   </main>
 </body>

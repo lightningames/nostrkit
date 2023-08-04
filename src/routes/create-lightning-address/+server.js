@@ -1,19 +1,20 @@
 import { json } from '@sveltejs/kit';
+import { LNBITS_URL, LNBITS_API_KEY, LNBITS_ADMIN_KEY } from '$env/static/private';
 
 export async function POST({ request }) {
   // create the user's wallet
   const body = await request.json();
   const { username } = body;
   console.log('this is request', username)
-  const newWallet = await fetch('https://sats.lnaddy.com/usermanager/api/v1/users', {
+  const newWallet = await fetch(`${LNBITS_URL}/usermanager/api/v1/users`, {
       method: 'POST',
       headers: {
-          'X-Api-Key': '1da19ce09c494d45a8cf012b3d131d67',
+          'X-Api-Key': LNBITS_API_KEY,
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          admin_id: '93689e9467004b029a3fbf987ed8b06f',
-          wallet_name: 'bob-wallet',
+          admin_id: LNBITS_ADMIN_KEY,
+          wallet_name: `${username}-wallet`,
           user_name: username,
           email: '',
           password: ''
@@ -34,10 +35,10 @@ export async function POST({ request }) {
   let userAdminKey = data.wallets[0].adminkey
 
   // Allow lnurlP extension
-  const setExtensions = await fetch(`https://sats.lnaddy.com/usermanager/api/v1/extensions?extension=lnurlp&userid=${userId}&active=true`, {
+  const setExtensions = await fetch(`${LNBITS_URL}/usermanager/api/v1/extensions?extension=lnurlp&userid=${userId}&active=true`, {
     method: 'POST',
     headers: {
-        'X-Api-Key': '1da19ce09c494d45a8cf012b3d131d67',
+        'X-Api-Key': LNBITS_API_KEY,
         'Content-Type': 'application/json'
     }
   })
@@ -54,7 +55,8 @@ export async function POST({ request }) {
 
   let lnurlpData;
 
-  const createLNURLp = await fetch('https://sats.lnaddy.com/lnurlp/api/v1/links', {
+  //create lnurlP for the user's wallet
+  const createLNURLp = await fetch(`${LNBITS_URL}/lnurlp/api/v1/links`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
@@ -86,7 +88,8 @@ let lightningAddress;
 
 let selectedName = lnurlpData.username
 
-const createLightningAddress = await fetch(`https://sats.lnaddy.com/lnurlp/api/v1/well-known/${username}`, {
+//retrieve the user's lightning address
+const createLightningAddress = await fetch(`${LNBITS_URL}/lnurlp/api/v1/well-known/${username}`, {
   method: 'GET',
   headers: {
     'accept': 'application/json'
@@ -101,22 +104,4 @@ if (createLightningAddress.ok) {
   console.error(`Error: ${createLightningAddress.status}`)
   return json({status: createLightningAddress.status, body: await createLightningAddress.text()})
 }
-
-//   curl -X 'POST' \
-//   'https://sats.lnaddy.com/lnurlp/api/v1/links' \
-//   -H 'accept: application/json' \
-//   -H 'X-API-KEY: d700475cd63d4874b3756949cc49bed3' \
-//   -H 'Content-Type: application/json' \
-//   -d '{
-//   "description": "string",
-//   "min": 1000,
-//   "max": 1000,
-//   "amount": 1000,
-//   "currency": "satoshi",
-//   "comment_chars": 10,
-//   "success_text": "string",
-//   "fiat_base_multiplier": 100,
-//   "username": "bob1231blargh",
-//   "zaps": true
-// }'
 }

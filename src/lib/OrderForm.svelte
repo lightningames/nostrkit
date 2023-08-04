@@ -69,6 +69,9 @@
     console.log('this is takenNames\n', takenNames);
   });
 
+  /**
+   * @param {number} id
+   */
   function toggleProduct(id) {
     if (selectedProducts.includes(id)) {
       selectedProducts = selectedProducts.filter((product) => product !== id);
@@ -150,13 +153,13 @@
           {/if}
         </h2>
         <!-- Add form fields for each product here -->
-        {#if step === 1}
+        {#if selectedProducts.includes(1) && step === selectedProducts.indexOf(1) + 1}
           <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
         {/if}
-        {#if step === 2}
+        {#if selectedProducts.includes(2) && step === selectedProducts.indexOf(2) + 1}
           <GenerateNip05 {pubKey} {takenNames} bind:nostrHandle />
         {/if}
-        {#if step === 3}
+        {#if selectedProducts.includes(3) && step === selectedProducts.indexOf(3) + 1}
           <GenerateLightningAddress bind:lightningAddress />
         {/if}
       </div>
@@ -184,22 +187,6 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     padding: 1rem;
-  }
-
-  .product-card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .product-card h2 {
-    margin-bottom: 1rem;
-  }
-
-  .product-card input[type='checkbox'] {
-    display: inline-block;
-    margin-top: 1rem;
   }
 
   .button-container {
