@@ -48,29 +48,36 @@
   }
 </script>
 
-<div class="container">
-  {#if !addressCreated}
-    <h3>Make your own NIP-05</h3>
-    <input
-      bind:this={inputElement}
-      type="text"
-      autocomplete="off"
-      on:input={(e) => {
-        if (takenNames.indexOf(e.target.value) > -1) {
-          console.log(takenNames.indexOf(e.target.value));
-          alert('hello world');
-          // mark text red, don't allow submission
-        }
-      }}
-      on:keydown={async (e) => {
-        if (e.key === 'Enter') {
-          submit();
-        }
-      }}
-    />
-    <button on:click={(e) => submit(e)}>Create your NIP-05</button>
-  {:else}
-    <h4>Great choice! Heres your handle. Press Next to continue</h4>
-    <p>{nostrHandle}@nostrkit.plebnet.dev</p>
-  {/if}
-</div>
+<h3>Create your NIP-05</h3>
+<article>
+  <header>
+    <p>
+      Create an email-like identifier that's tethered to your lightning address.
+    </p>
+  </header>
+  <div class="container">
+    {#if !addressCreated}
+      <input
+        bind:this={inputElement}
+        type="text"
+        autocomplete="off"
+        on:input={(e) => {
+          if (takenNames.indexOf(e.target.value) > -1) {
+            console.log(takenNames.indexOf(e.target.value));
+            alert('hello world');
+            // mark text red, don't allow submission
+          }
+        }}
+        on:keydown={async (e) => {
+          if (e.key === 'Enter') {
+            submit();
+          }
+        }}
+      />
+      <button on:click={(e) => submit(e)}>Create your NIP-05</button>
+    {:else}
+      <h4>Great choice! Heres your handle. Press Next to continue</h4>
+      <p>{nostrHandle}@nostrkit.plebnet.dev</p>
+    {/if}
+  </div>
+</article>

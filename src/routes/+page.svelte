@@ -63,7 +63,7 @@
     </nav>
   </header>
   <main class="container">
-    <hr />
+    <!-- <hr />
     <h1>Welcome to <span class="nostr-text">NOSTRKIT<span></span></span></h1>
     <br />
     <h3>
@@ -97,7 +97,7 @@
         Integrate your Lightning Address to send and receive payments (Zaps!) in
         real-time.
       </p>
-    </article>
+    </article> -->
     <!--
     <button id="nostr-form" on:click={getKeys}>Generate your keys!</button>
     <div class="container">

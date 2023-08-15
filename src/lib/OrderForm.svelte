@@ -93,93 +93,65 @@
 
 <article>
   <form class="order-form">
-    {#if step === 0}
-      <h2>Start your Order</h2>
-      <div class="product-cards">
-        {#each products as product (product.id)}
-          <article>
-            <header>
-              <h3 style="white-space: nowrap;">
-                {product.name}
-                {#if product.id === 1}
-                  <KeysIcon style="font-size:1em" />
-                {/if}
-                {#if product.id === 2}
-                  <AddressIcon style="font-size:1em" />
-                {/if}
-                {#if product.id === 3}
-                  <LightningIcon style="font-size:1rem" />
-                {/if}
-              </h3>
-            </header>
-            {product.description}
+    <h2>Start your Order</h2>
+    <!-- <div class="product-cards">
+      {#each products as product (product.id)}
+        <article>
+          <header>
+            <h3 style="white-space: nowrap;">
+              {product.name}
+              {#if product.id === 1}
+                <KeysIcon style="font-size:1em" />
+              {/if}
+              {#if product.id === 2}
+                <AddressIcon style="font-size:1em" />
+              {/if}
+              {#if product.id === 3}
+                <LightningIcon style="font-size:1rem" />
+              {/if}
+            </h3>
+          </header>
+          {product.description}
 
-            <footer>
-              <div
-                style="display:flex; align-items: center; justify-content: center;"
-              >
-                <input
-                  id="product"
-                  type="checkbox"
-                  checked={selectedProducts.includes(product.id)}
-                  on:change={() => toggleProduct(product.id)}
-                />
-                <p style="align-items: center; margin-top:0.8rem;">
-                  Add to Cart
-                </p>
-              </div>
-            </footer>
-          </article>
-        {/each}
-      </div>
-      {#if selectedProducts.length}
-        <div class="button-container">
-          <button on:click={() => step++}>Next</button>
-        </div>
-      {/if}
-    {:else if step <= selectedProducts.length}
-      <div class="product-page">
-        <h2>
-          {products.find((product) => product.id === selectedProducts[step - 1])
-            .name}
-          {#if selectedProducts[step - 1] === 1}
-            <KeysIcon style="font-size:1em" />
-          {/if}
-          {#if selectedProducts[step - 1] === 2}
-            <AddressIcon style="font-size:1em" />
-          {/if}
-          {#if selectedProducts[step - 1] === 3}
-            <LightningIcon style="font-size:1rem" />
-          {/if}
-        </h2>
-        <!-- Add form fields for each product here -->
-        {#if selectedProducts.includes(1) && step === selectedProducts.indexOf(1) + 1}
-          <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
-        {/if}
-        {#if selectedProducts.includes(2) && step === selectedProducts.indexOf(2) + 1}
-          <GenerateNip05 {pubKey} {takenNames} bind:nostrHandle />
-        {/if}
-        {#if selectedProducts.includes(3) && step === selectedProducts.indexOf(3) + 1}
-          <GenerateLightningAddress bind:lightningAddress />
-        {/if}
-      </div>
-      <div class="button-container">
-        <button
-          on:click={(e) => {
-            e.preventDefault();
-            step++;
-          }}>Next</button
-        >
-      </div>
-    {:else}
-      <div class="checkout-page">
-        <h2>Checkout</h2>
-        <!-- Add checkout form fields here -->
-        <Checkout {pubKey} {privKey} {lightningAddress} {nostrHandle} />
-      </div>
-    {/if}
+          <footer>
+            <div
+              style="display:flex; align-items: center; justify-content: center;"
+            >
+              <input
+                id="product"
+                type="checkbox"
+                checked={selectedProducts.includes(product.id)}
+                on:change={() => toggleProduct(product.id)}
+              />
+              <p style="align-items: center; margin-top:0.8rem;">Add to Cart</p>
+            </div>
+          </footer>
+        </article>
+      {/each}
+    </div> -->
+
+    <!-- Display all Generate components at once -->
+    <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
+    <GenerateNip05 {pubKey} {takenNames} bind:nostrHandle />
+    <GenerateLightningAddress {pubKey} bind:lightningAddress />
+
+    <!-- Display Checkout component -->
+    <div class="checkout-page">
+      <h2>Checkout</h2>
+      <Checkout {pubKey} {privKey} {lightningAddress} {nostrHandle} />
+    </div>
   </form>
 </article>
+
+<!-- to do:
+
+0. add paywall using lnbits api for our wallet.
+
+1. move generate logic behind paywall. this logic is currently in front of paywall
+
+2. need to fix how lightning address works (see example website bitkarrot provided)
+
+3. clean up checkout display. -->
 
 <style>
   .product-cards {

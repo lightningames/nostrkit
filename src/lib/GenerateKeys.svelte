@@ -30,6 +30,7 @@
   }
 </script>
 
+<h3>Create your NOSTR npub/nsec</h3>
 <article>
   <header>
     <p>

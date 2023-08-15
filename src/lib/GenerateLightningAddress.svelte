@@ -6,6 +6,13 @@
 
   let username = '';
 
+  let zaps = false;
+
+  /**
+   * @type {string}
+   */
+  export let pubKey;
+
   /**
    * @param {MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }} e
    */
@@ -18,35 +25,49 @@
       },
       body: JSON.stringify({
         username: username,
+        zaps: zaps,
+        pubKey: zaps ? pubKey : '',
       }),
     });
 
     if (response.ok) {
       const data = await response.json();
-      const metadata = JSON.parse(data.metadata);
-      lightningAddress = metadata[1][1];
-      console.log(lightningAddress); // This will log "bob22test12345@sats.lnaddy.com"
+      lightningAddress = data.message;
+      console.log(data); // This will log "bob22test12345@sats.lnaddy.com"
     } else {
       lightningAddress = `Error: ${response.status}`;
     }
   }
 </script>
 
-<div class="input-wrapper">
-  <input type="text" bind:value={username} placeholder="Enter username" />
-  <span>@sats.lnaddy.com</span>
-</div>
-
-<button
-  on:click={(e) => generateLightningAddress(e)}
-  disabled={lightningAddress ? true : false}>Generate Lightning Address</button
->
-{#if lightningAddress}
-  <h6>
-    Your brand new lightning address! Use this to send and receive bitcoin!
-  </h6>
-  <p>{lightningAddress}</p>
-{/if}
+<h3>Create your Lightning Address</h3>
+<article>
+  <header>
+    <p>
+      Create an email-like identifier that's tethered to your lightning address.
+    </p>
+  </header>
+  <div class="input-wrapper">
+    <input type="text" bind:value={username} placeholder="Enter username" />
+    <span>@sats.lnaddy.com</span>
+  </div>
+  <label>
+    <input type="checkbox" bind:checked={zaps} />
+    Enable Zaps?
+  </label>
+  <button
+    on:click={(e) => generateLightningAddress(e)}
+    disabled={lightningAddress ? true : false}
+    >Generate Lightning Address</button
+  >
+  {#if lightningAddress}
+    <h6>
+      Here's your brand lightning address! Use this to send and receive bitcoin
+      like you would your lnurlP
+    </h6>
+    <p>{lightningAddress}</p>
+  {/if}
+</article>
 
 <style>
   .input-wrapper {
