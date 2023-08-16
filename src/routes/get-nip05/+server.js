@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import fs from 'fs';
 import path from 'path';
+import { LNBITS_URL, LNBITS_API_KEY, LNBITS_ADMIN_KEY, DOMAIN } from '$env/static/private';
 
 export function GET() {
 	// const { nostrHandle, pubKey } = await request.json();
@@ -40,5 +41,5 @@ export function GET() {
   // mapping.names[nostrHandle] = pubKey;
 
   fs.writeFileSync(filePath, JSON.stringify(mapping));
-	return json({ mapping }, { status: 201 });
+	return json({ mapping, domain: DOMAIN }, { status: 201 });
 }

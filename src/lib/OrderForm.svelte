@@ -10,6 +10,11 @@
 
   let keys;
 
+  /**
+   * @type {string}
+   */
+  let domain;
+
   let nostrHandle = '';
 
   let lightningAddress = '';
@@ -66,7 +71,9 @@
     for (let takenName in chosenNames) {
       takenNames.push(takenName);
     }
-    console.log('this is takenNames\n', takenNames);
+    console.log(data);
+    domain = data.domain;
+    // console.log('this is takenNames\n', takenNames);
   });
 
   /**
@@ -132,7 +139,7 @@
 
     <!-- Display all Generate components at once -->
     <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
-    <GenerateNip05 {pubKey} {takenNames} bind:nostrHandle />
+    <GenerateNip05 {pubKey} {takenNames} {domain} bind:nostrHandle />
     <GenerateLightningAddress {pubKey} bind:lightningAddress />
 
     <!-- Display Checkout component -->
