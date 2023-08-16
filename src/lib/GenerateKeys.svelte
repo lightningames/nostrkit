@@ -24,9 +24,45 @@
    */
   export let getKeys;
 
+  /**
+   * @type {string}
+   */
+  export let userProvidedPubKey;
+
+  let showInput = false;
+  let userInput = '';
+  let inputColor = 'black';
+  let invalidKey = false;
+
+  async function checkValidity() {
+    const res = await fetch('/evaluate-npub', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userProvidedPubKey }),
+    });
+    const data = await res.json();
+    console.log(data);
+    invalidKey = true;
+    inputColor = data.valid ? 'black' : 'red';
+    if (data.valid) {
+      userProvidedPubKey = data.npub;
+      invalidKey = false;
+    }
+  }
+
   function togglePrivKey(e) {
     e.preventDefault();
     showPrivKey = !showPrivKey;
+  }
+
+  function toggleInput(e) {
+    e.preventDefault();
+    showInput = !showInput;
+    userInput = '';
+    userProvidedPubKey = '';
+    invalidKey = false;
   }
 </script>
 
@@ -38,11 +74,31 @@
       shown your private key again.
     </p>
   </header>
-  <!-- {console.log('this is keysGen:', keysGen)} -->
-  {#if !keysGen}
+  {#if !keysGen && !showInput}
     <button id="nostr-form" on:click={(e) => getKeys(e)}
       >Generate your keys!
     </button>
+    <button id="provide-npub" on:click={(e) => toggleInput(e)}
+      >Provide your own npub
+    </button>
+  {/if}
+  {#if showInput}
+    <div
+      class="input-wrapper {invalidKey ? 'show-tooltip' : ''}"
+      data-tooltip="Invalid npub"
+      data-placement="bottom"
+      style="border:none; padding:0; margin:0;"
+    >
+      <input
+        type="text"
+        class={invalidKey ? 'input-error' : ''}
+        bind:value={userProvidedPubKey}
+        placeholder="Enter your npub"
+        on:input={checkValidity}
+        style="color: {inputColor};"
+      />
+    </div>
+    <button id="back-button" on:click={(e) => toggleInput(e)}>Back </button>
   {/if}
   <div class="container">
     <p>{pubKey ? `Public Key: ${pubKey}` : ''}</p>
@@ -58,3 +114,30 @@
     {/if}
   </div>
 </article>
+
+<style>
+  .input-wrapper[data-tooltip]:not([data-tooltip=''])::before,
+  .input-wrapper[data-tooltip]:not([data-tooltip=''])::after {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .show-tooltip[data-tooltip]:not([data-tooltip=''])::before,
+  .show-tooltip[data-tooltip]:not([data-tooltip=''])::after {
+    visibility: visible;
+    opacity: 1;
+    color: red;
+    margin-top: -0.9rem;
+  }
+
+  .input-error {
+    border: 3px solid red !important;
+    outline: red !important;
+    box-shadow: 0 0 10px red;
+  }
+  .input-error:focus {
+    border: 3px solid red !important;
+    outline: red !important;
+    box-shadow: 0 0 10px red;
+  }
+</style>

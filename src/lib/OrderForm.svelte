@@ -59,6 +59,11 @@
   let privKey;
 
   /**
+   * @type {string}
+   */
+  let userProvidedPubKey;
+
+  /**
    * @type {string[]}
    */
   let takenNames = [];
@@ -138,13 +143,14 @@
     </div> -->
 
     <!-- Display all Generate components at once -->
-    <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} />
+    <GenerateKeys {pubKey} {privKey} {getKeys} {keysGen} {userProvidedPubKey} />
     <GenerateNip05 {pubKey} {takenNames} {domain} bind:nostrHandle />
     <GenerateLightningAddress {pubKey} bind:lightningAddress />
 
     <!-- Display Checkout component -->
     <div class="checkout-page">
       <h2>Checkout</h2>
+      <!-- TODO: NEED TO PASS PUBKEY AND USERPROVIDED PUBKEY AND EVALUATE -->
       <Checkout {pubKey} {privKey} {lightningAddress} {nostrHandle} />
     </div>
   </form>

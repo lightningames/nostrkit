@@ -26,6 +26,7 @@
 	"type": "module",
 	"dependencies": {
 		"@picocss/pico": "^2.0.0-alpha1",
+		"bech32": "^2.0.0",
 		"nostr-tools": "^1.13.1"
 	}
 }
