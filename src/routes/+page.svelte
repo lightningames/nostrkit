@@ -156,11 +156,4 @@
     flex-direction: column;
     align-items: start;
   }
-  .nostr-text {
-    color: #6a359c;
-    text-decoration: none;
-  }
-  a.nostr-text {
-    text-decoration: underline;
-  }
 </style>

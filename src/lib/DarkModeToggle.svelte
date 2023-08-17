@@ -1,7 +1,9 @@
 <!-- Button.svelte -->
 <script>
+  // @ts-nocheck
+
   import { onMount } from 'svelte';
-  export let label = '';
+  // export let label = '';
   let isLight;
   let html;
   let switchTheme;

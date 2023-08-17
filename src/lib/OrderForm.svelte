@@ -219,22 +219,3 @@
     </div>
   </form>
 </article>
-
-<style>
-  .product-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-  }
-
-  h3 {
-    color: #6a359c;
-  }
-</style>
