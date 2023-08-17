@@ -4,6 +4,8 @@ import path from 'path';
 
 export async function POST({ request, cookies }) {
 	const { nostrHandle, pubKey } = await request.json();
+  console.log('this is nostrHandle: ', nostrHandle)
+  console.log('this is pubKey ', pubKey)
 
 	const userid = cookies.get('userid');
 	// const { id } = await database.createTodo({ userid, description });

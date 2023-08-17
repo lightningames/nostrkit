@@ -1,7 +1,10 @@
 <script>
-  let number;
+  import AddressIcon from 'virtual:icons/entypo/email';
 
-  let unavailableName = false;
+  /**
+   * @type {boolean | undefined}
+   */
+  let unavailableName = undefined;
 
   /**
    * @type {string}
@@ -19,9 +22,9 @@
   export let takenNames = [];
 
   /**
-   * @type {{ value: string; }}
+   * @type {any}
    */
-  let inputElement;
+  export let inputElement;
 
   let addressCreated = false;
 
@@ -31,13 +34,18 @@
   export let nostrHandle;
 
   /**
+   * @type {any}
+   */
+  export let userProvidedPubKey;
+
+  /**
    * @param {(MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) | undefined} [e]
    */
   async function submit(e) {
     e.preventDefault();
-    nostrHandle = inputElement.value;
-    console.log('this is input', inputElement);
-    console.log('this is nostrhandle', nostrHandle);
+    nostrHandle = inputElement;
+    console.log('userprovidedkey: ', userProvidedPubKey);
+    pubKey = pubKey || userProvidedPubKey;
     const response = await fetch('/create-nip05', {
       method: 'POST',
       body: JSON.stringify({ nostrHandle, pubKey }),
@@ -46,7 +54,7 @@
       },
     });
 
-    inputElement.value = '';
+    inputElement = '';
     const data = await response.json();
     if (data.error) {
       alert(data.error);
@@ -56,7 +64,10 @@
   }
 </script>
 
-<h3>Create your NIP-05</h3>
+<div class="header-container">
+  <h3 class="nostr-text">Create your NIP-05</h3>
+  <AddressIcon style="color:#6a359c;" />
+</div>
 <article>
   <header>
     <p>
@@ -70,16 +81,27 @@
           class="input-wrapper {unavailableName ? 'show-tooltip' : ''}"
           data-tooltip="This name is unavailable"
           data-placement="bottom"
-          style="border:none; padding:0; margin:0;"
+          style="border:none; padding:0; margin:0; cursor:auto"
         >
           <input
-            bind:this={inputElement}
+            bind:value={inputElement}
             type="text"
             autocomplete="off"
-            class={unavailableName ? 'input-error' : ''}
+            placeholder="jackdorsey"
+            class={unavailableName === undefined
+              ? ''
+              : unavailableName
+              ? 'input-error'
+              : 'input-success'}
             on:input={(e) => {
-              if (takenNames.indexOf(e.target.value) > -1) {
-                console.log(takenNames.indexOf(e.target.value));
+              if (!e.target.value.length) {
+                unavailableName = undefined;
+                return;
+              }
+              if (
+                takenNames.indexOf(e.target.value) > -1 ||
+                e.target.value.length < 2
+              ) {
                 unavailableName = true;
               } else {
                 unavailableName = false;
@@ -111,7 +133,7 @@
 
   .input-wrapper input {
     padding-right: 120px; /* Adjust based on the size of the text */
-    width: 30rem;
+    width: 20rem;
   }
 
   .input-wrapper span {
@@ -146,4 +168,30 @@
     outline: red !important;
     box-shadow: 0 0 10px red;
   }
+
+  .input-success {
+    border: 3px solid green !important;
+    outline: green !important;
+    box-shadow: 0 0 10px green;
+  }
+  .input-success:focus {
+    border: 3px solid green !important;
+    outline: green !important;
+    box-shadow: 0 0 10px green;
+  }
+  .nostr-text {
+    color: #6a359c;
+    text-decoration: none;
+  }
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 10px; /* Adjust this value to your liking */
+  }
+
+  /* .header-container h3,
+  .header-container svg {
+    color: #6a359c;
+  } */
 </style>

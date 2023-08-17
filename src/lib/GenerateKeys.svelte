@@ -1,4 +1,6 @@
 <script>
+  import KeysIcon from 'virtual:icons/game-icons/house-keys';
+
   /**
    * @type {string}
    */
@@ -32,7 +34,7 @@
   let showInput = false;
   let userInput = '';
   let inputColor = 'black';
-  let invalidKey = false;
+  let invalidKey = undefined;
 
   async function checkValidity() {
     const res = await fetch('/evaluate-npub', {
@@ -62,16 +64,19 @@
     showInput = !showInput;
     userInput = '';
     userProvidedPubKey = '';
-    invalidKey = false;
+    invalidKey = undefined;
   }
 </script>
 
-<h3>Create your NOSTR npub/nsec</h3>
+<div class="header-container">
+  <h3 class="nostr-text">Create your NOSTR npub/nsec</h3>
+  <KeysIcon style="color:#6a359c;" />
+</div>
 <article>
   <header>
     <p>
-      Generate your NOSTR npub and nsec keys. Keep these safe! You won't be
-      shown your private key again.
+      Generate your NOSTR npub and nsec keys or provide your own. Keep these
+      safe! You won't be shown your private key again.
     </p>
   </header>
   {#if !keysGen && !showInput}
@@ -87,11 +92,15 @@
       class="input-wrapper {invalidKey ? 'show-tooltip' : ''}"
       data-tooltip="Invalid npub"
       data-placement="bottom"
-      style="border:none; padding:0; margin:0;"
+      style="border:none; padding:0; margin:0; cursor:auto"
     >
       <input
         type="text"
-        class={invalidKey ? 'input-error' : ''}
+        class={invalidKey === undefined
+          ? ''
+          : invalidKey
+          ? 'input-error'
+          : 'input-success'}
         bind:value={userProvidedPubKey}
         placeholder="Enter your npub"
         on:input={checkValidity}
@@ -139,5 +148,25 @@
     border: 3px solid red !important;
     outline: red !important;
     box-shadow: 0 0 10px red;
+  }
+  .input-success {
+    border: 3px solid green !important;
+    outline: green !important;
+    box-shadow: 0 0 10px green;
+  }
+  .input-success:focus {
+    border: 3px solid green !important;
+    outline: green !important;
+    box-shadow: 0 0 10px green;
+  }
+  .nostr-text {
+    color: #6a359c;
+    text-decoration: none;
+  }
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 10px; /* Adjust this value to your liking */
   }
 </style>
