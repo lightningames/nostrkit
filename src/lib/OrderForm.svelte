@@ -47,12 +47,6 @@
 
   let keysGen = false;
 
-  let step = 0;
-  /**
-   * @type {any[]}
-   */
-  let selectedProducts = [];
-
   /**
    * @type {string}
    */
@@ -85,17 +79,6 @@
     // console.log('this is takenNames\n', takenNames);
   });
 
-  /**
-   * @param {number} id
-   */
-  function toggleProduct(id) {
-    if (selectedProducts.includes(id)) {
-      selectedProducts = selectedProducts.filter((product) => product !== id);
-    } else {
-      selectedProducts = [...selectedProducts, id];
-    }
-  }
-
   // @ts-ignore
   async function getKeys(e) {
     e.preventDefault();
@@ -110,29 +93,32 @@
     let total = 0;
     if (inputElement) {
       if (inputElement.length === 2) {
-        total += 10000;
+        total += 40000;
       }
       if (inputElement.length === 3) {
-        total += 7500;
+        total += 25000;
       }
-      if (inputElement.length > 3) {
-        total += 5000;
-      }
-    }
-    if (username) {
-      let usernameParts = username.split('@');
-      let usernameFirstPart = usernameParts[0];
-
-      if (usernameFirstPart.length === 2) {
+      if (inputElement.length === 4) {
         total += 10000;
       }
-      if (usernameFirstPart.length === 3) {
-        total += 7500;
-      }
-      if (usernameFirstPart.length > 3) {
+      if (inputElement.length > 4) {
         total += 5000;
       }
     }
+    // if (username) {
+    //   let usernameParts = username.split('@');
+    //   let usernameFirstPart = usernameParts[0];
+
+    //   if (usernameFirstPart.length === 2) {
+    //     total += 10000;
+    //   }
+    //   if (usernameFirstPart.length === 3) {
+    //     total += 7500;
+    //   }
+    //   if (usernameFirstPart.length > 3) {
+    //     total += 5000;
+    //   }
+    // }
     return total;
   }
 
@@ -149,43 +135,6 @@
 <article>
   <form class="order-form">
     <h2>Start your Order</h2>
-    <!-- <div class="product-cards">
-      {#each products as product (product.id)}
-        <article>
-          <header>
-            <h3 style="white-space: nowrap;">
-              {product.name}
-              {#if product.id === 1}
-                <KeysIcon style="font-size:1em" />
-              {/if}
-              {#if product.id === 2}
-                <AddressIcon style="font-size:1em" />
-              {/if}
-              {#if product.id === 3}
-                <LightningIcon style="font-size:1rem" />
-              {/if}
-            </h3>
-          </header>
-          {product.description}
-
-          <footer>
-            <div
-              style="display:flex; align-items: center; justify-content: center;"
-            >
-              <input
-                id="product"
-                type="checkbox"
-                checked={selectedProducts.includes(product.id)}
-                on:change={() => toggleProduct(product.id)}
-              />
-              <p style="align-items: center; margin-top:0.8rem;">Add to Cart</p>
-            </div>
-          </footer>
-        </article>
-      {/each}
-    </div> -->
-
-    <!-- Display all Generate components at once -->
     <GenerateKeys
       {pubKey}
       {privKey}
@@ -207,8 +156,6 @@
       {pubKey}
       bind:lightningAddress
     />
-
-    <!-- Display Checkout component -->
     <div class="checkout-page">
       {#if (pubKey || userProvidedPubKey) && (inputElement || username)}
         <h2 style="color:#FF9900">

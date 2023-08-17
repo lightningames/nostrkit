@@ -117,7 +117,7 @@
           <span>@{domain}</span>
         </div>
       </div>
-      <button on:click={(e) => submit(e)}>Create your NIP-05</button>
+      <!-- <button on:click={(e) => submit(e)}>Create your NIP-05</button> -->
     {:else}
       <h4>Great choice! Heres your handle. Press Next to continue</h4>
       <p>{nostrHandle}@{domain}</p>

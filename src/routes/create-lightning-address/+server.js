@@ -6,9 +6,11 @@ import { promisify } from 'util';
 const writeFile = promisify(fs.writeFile);
 
 function parseLightningAddress(username) {
+  // Split the username into the actual username and the domain
+  let [user, domain] = username.split("@");
 
   // Construct the LNURL Pay request URL
-  let lnurlP = `https://${DOMAIN}/.well-known/lnurlp/${username}`;
+  let lnurlP = `https://${domain}/.well-known/lnurlp/${user}`;
 
   return lnurlP;
 }
@@ -25,9 +27,9 @@ export async function POST({ request }) {
   console.log('this is request', username)
   const lnurlPayRequest = parseLightningAddress(username);
 
-  // const response = await fetch(lnurlPayRequest);
+  const response = await fetch(lnurlPayRequest);
   // testing with EzoFox's lnurlP
-  const response = await fetch('https://walletofsatoshi.com/.well-known/lnurlp/scarredsofa23')
+  // const response = await fetch('https://walletofsatoshi.com/.well-known/lnurlp/scarredsofa23')
   if (!response.ok) {
     throw new Error(`Fetch failed with status: ${response.status}`);
   }

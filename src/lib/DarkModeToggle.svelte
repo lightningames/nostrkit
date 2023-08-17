@@ -21,10 +21,10 @@
     switchTheme = document.getElementById('theme_switcher');
     html.setAttribute('data-theme', isLight ? 'light' : 'dark');
     currentSvg = isLight ? sun : moon;
-    switchTheme.setAttribute(
-      'data-tooltip',
-      `theme ${isLight ? 'light' : 'dark'}`,
-    );
+    // switchTheme.setAttribute(
+    //   'data-tooltip',
+    //   `theme ${isLight ? 'light' : 'dark'}`,
+    // );
     removeTooltip(3000);
 
     switchTheme.addEventListener('click', (e) => {
@@ -32,10 +32,10 @@
       isLight = !isLight;
       html.setAttribute('data-theme', isLight ? 'light' : 'dark');
       currentSvg = isLight ? sun : moon;
-      switchTheme.setAttribute(
-        'data-tooltip',
-        `theme ${isLight ? 'light' : 'dark'}`,
-      );
+      // switchTheme.setAttribute(
+      //   'data-tooltip',
+      //   `theme ${isLight ? 'light' : 'dark'}`,
+      // );
       removeTooltip();
     });
   });
@@ -58,5 +58,6 @@
     width: 50px;
     height: 50px;
     border-bottom: none;
+    color: #6a359c;
   }
 </style>

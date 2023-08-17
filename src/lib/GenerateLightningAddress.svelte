@@ -1,4 +1,5 @@
 <script>
+  // @ts-ignore
   import LightningIcon from 'virtual:icons/carbon/lightning';
   /**
    * @type {string}
@@ -70,7 +71,11 @@
 </script>
 
 <div class="header-container">
-  <h3 class="nostr-text">Lightning Address Forwarding Service</h3>
+  <h3 class="nostr-text">
+    Lightning Address Forwarding Service<span style="font-size:.5rem"
+      >(optional)</span
+    >
+  </h3>
   <LightningIcon style="color:#6a359c;" />
 </div>
 <article>
@@ -111,11 +116,11 @@
         />
       </div>
     </div>
-    <button
+    <!-- <button
       on:click={(e) => generateLightningAddress(e)}
       disabled={lightningAddress ? true : false}
       >Generate Lightning Address</button
-    >
+    > -->
     <!-- <span>@sats.lnaddy.com</span> -->
     <label>
       <input type="checkbox" bind:checked={zaps} />

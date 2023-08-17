@@ -2,9 +2,11 @@
   import { onMount, onDestroy } from 'svelte';
   import { checkoutStore } from '$lib/store.js';
   import DarkModeToggle from '$lib/DarkModeToggle.svelte';
+  // @ts-ignore
   import ClipboardIcon from 'virtual:icons/carbon/copy';
   import '@picocss/pico';
   import { goto } from '$app/navigation';
+  import CopyableParagraph from '$lib/CopyElement.svelte';
 
   /**
    * @type {string}
@@ -41,6 +43,13 @@
    * @type {string}
    */
   let lnbitsAdminKey;
+
+  /**
+   * @type {string}
+   */
+  let domain;
+
+  let copied = false;
 
   checkoutStore.subscribe((value) => {
     pubKey = value.pubKey;
@@ -132,14 +141,14 @@
         },
         body: JSON.stringify({
           description: `NOSTRKIT payment for ${nostrHandle} successful`,
-          // min: checkoutCost,
-          // max: checkoutCost,
-          // amount: checkoutCost,
-          min: 1,
-          max: 1,
-          amount: 1,
+          min: checkoutCost,
+          max: checkoutCost,
+          amount: checkoutCost,
+          // min: 1,
+          // max: 1,
+          // amount: 1,
           comment_chars: 50,
-          success_text: 'Thanks for joining the PlebDev Community!',
+          success_text: 'Thanks for using NOSTRKIT!',
         }),
       },
     );
@@ -162,6 +171,7 @@
     const envData = await getEnvVars.json();
     baseLNbitsURL = envData.lnbitsURL;
     lnbitsAdminKey = envData.lnbitsAdminKey;
+    domain = envData.domain;
 
     const paylinkResponse = await fetch('/handle-checkout', {
       method: 'POST',
@@ -194,8 +204,15 @@
       .catch((err) => {
         console.error('Could not copy text: ', err);
       });
+    copied = true;
+    setTimeout(() => {
+      copied = false;
+    }, 2000); // hide the tooltip after 2 seconds
   }
 
+  /**
+   * @param {number} number
+   */
   function formatNumberWithCommas(number) {
     return Number(number).toLocaleString();
   }
@@ -248,7 +265,7 @@
     <nav>
       <ul>
         <li class="vertical-stack">
-          <strong>NOSTRKIT</strong>
+          <strong><a href="/">NOSTRKIT</a></strong>
           <small>by <a href="https://www.plebnet.dev">PlebNet.dev</a></small>
         </li>
       </ul>
@@ -285,12 +302,20 @@
                 <div style="display: flex; justify-content: center;">
                   Copy LNURL<ClipboardIcon style="margin-left: 1rem" />
                 </div>
+                <span
+                  class="tooltip"
+                  style="visibility: {copied ? 'visible' : 'hidden'}"
+                >
+                  <span>Copied!</span>
+                </span>
               </button>
             {/if}
           </div>
         </div>
       {/if}
-      <h4>Order Summary:</h4>
+      {#if hasPaid}
+        <h4>Order Summary:</h4>
+      {/if}
       <h5>
         <i
           >{hasPaid
@@ -298,33 +323,29 @@
             : 'Please pay for your order to receive your NOSTR goodies'}</i
         >
       </h5>
-      {#if pubKey}
+      {#if pubKey && hasPaid}
         <h6>
           nPub Key (NOSTR Public Key)
-          {#if hasPaid}
-            <p>{pubKey}</p>
-          {/if}
+          <CopyableParagraph>{pubKey}</CopyableParagraph>
         </h6>
-        <h6>
-          nSec Key (NOSTR Private Key)
-          {#if hasPaid && privKey}
-            <p>{privKey}</p>
-          {/if}
-        </h6>
+        {#if privKey}
+          <h6>
+            nSec Key (NOSTR Private Key)
+            <CopyableParagraph>{privKey}</CopyableParagraph>
+          </h6>
+        {/if}
       {/if}
       <br />
-      {#if nostrHandle}
+      {#if nostrHandle && hasPaid}
         <h6>
           NIP-05 (NOSTR public handle/username)
-          {#if hasPaid}
-            <p>{nostrHandle}</p>
-          {/if}
+          <CopyableParagraph>{nostrHandle}@{domain}</CopyableParagraph>
         </h6>
       {/if}
       {#if username && hasPaid}
         <h6>
           Lightning Address forwarding enabled from:
-          <p>{username}</p>
+          <CopyableParagraph>{username}</CopyableParagraph>
         </h6>
       {/if}
       {#if !hasPaid}
@@ -353,5 +374,26 @@
   .no-outline:focus {
     border: none;
     outline: none;
+  }
+  h6,
+  i {
+    color: #6a359c;
+  }
+  .lnurl {
+    position: relative;
+  }
+  .tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6a359c;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+  a {
+    color: #6a359c;
   }
 </style>
